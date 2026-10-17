@@ -7,8 +7,3 @@ __pycache__/
 .vscode/
 mlflow.db
 mlruns/
-confusion_matrix.png
-data/raw/*.csv
-data/interim/
-data/processed/
-models/*.pkl
