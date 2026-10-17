@@ -116,14 +116,14 @@ stages:
     params:
       params.yaml:
         model:
-          type: logreg
+          type: naive_bayes
           logreg_C: 1.0
           logreg_max_iter: 1000
     outs:
     - path: models/model.pkl
       hash: md5
-      md5: 4656cb98649ae00aefe6ea21db954244
-      size: 40863
+      md5: 0f1cbc19005e51341360dfe1ee39b17b
+      size: 160791
   model_evaluation:
     cmd: python src/model_evaluation.py
     deps:
@@ -145,8 +145,8 @@ stages:
       size: 149140
     - path: models/model.pkl
       hash: md5
-      md5: 4656cb98649ae00aefe6ea21db954244
-      size: 40863
+      md5: 0f1cbc19005e51341360dfe1ee39b17b
+      size: 160791
     - path: models/tfidf_vectorizer.pkl
       hash: md5
       md5: 1899275b402758ee2d65949ac2085181
@@ -158,9 +158,9 @@ stages:
     outs:
     - path: confusion_matrix.png
       hash: md5
-      md5: 138b24c32bb200a51a93f21b4294387e
-      size: 17706
+      md5: 49f049cd3e7e5b92e079441751008614
+      size: 16774
     - path: metrics.json
       hash: md5
-      md5: dd70fbbdcf85156194a0a2586b2de09e
-      size: 170
+      md5: bef49bbcb713037989aee2d3f21db32a
+      size: 171
