@@ -1,0 +1,24 @@
+# Données et ML
+pandas
+numpy
+scikit-learn
+matplotlib
+joblib
+
+# Notebooks
+jupyter
+
+# Suivi des expériences
+mlflow
+
+# Versionnement des données et pipeline
+dvc
+pyyaml
+
+# API
+fastapi
+uvicorn[standard]
+
+# Tests
+pytest
+httpx

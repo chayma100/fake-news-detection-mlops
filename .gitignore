@@ -1,0 +1,14 @@
+__pycache__/
+*.pyc
+.venv/
+.ipynb_checkpoints/
+.env
+.DS_Store
+.vscode/
+mlflow.db
+mlruns/
+confusion_matrix.png
+data/raw/*.csv
+data/interim/
+data/processed/
+models/*.pkl
