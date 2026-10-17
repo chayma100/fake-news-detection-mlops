@@ -27,7 +27,7 @@ stages:
       md5: c4f560e6eb5c5183534e487fa03d4a5b
       size: 173262047
   data_preprocessing:
-    cmd: python src/data_preprocessing.py
+    cmd: python -m src.data_preprocessing
     deps:
     - path: data/interim/test.csv
       hash: md5
@@ -39,8 +39,12 @@ stages:
       size: 173262047
     - path: src/data_preprocessing.py
       hash: md5
-      md5: bd4f92b18b8dd327fbfa00d6a81ee0d0
-      size: 1411
+      md5: 799b9fa25991e7a9200cb8731d9a158b
+      size: 895
+    - path: src/text_cleaning.py
+      hash: md5
+      md5: 3685d6e35ee13d7c6426335c8d1cbcb6
+      size: 556
     params:
       params.yaml:
         preprocessing:
@@ -116,14 +120,14 @@ stages:
     params:
       params.yaml:
         model:
-          type: naive_bayes
+          type: logreg
           logreg_C: 1.0
           logreg_max_iter: 1000
     outs:
     - path: models/model.pkl
       hash: md5
-      md5: 0f1cbc19005e51341360dfe1ee39b17b
-      size: 160791
+      md5: 4656cb98649ae00aefe6ea21db954244
+      size: 40863
   model_evaluation:
     cmd: python src/model_evaluation.py
     deps:
@@ -145,8 +149,8 @@ stages:
       size: 149140
     - path: models/model.pkl
       hash: md5
-      md5: 0f1cbc19005e51341360dfe1ee39b17b
-      size: 160791
+      md5: 4656cb98649ae00aefe6ea21db954244
+      size: 40863
     - path: models/tfidf_vectorizer.pkl
       hash: md5
       md5: 1899275b402758ee2d65949ac2085181
@@ -158,9 +162,9 @@ stages:
     outs:
     - path: confusion_matrix.png
       hash: md5
-      md5: 49f049cd3e7e5b92e079441751008614
-      size: 16774
+      md5: 138b24c32bb200a51a93f21b4294387e
+      size: 17706
     - path: metrics.json
       hash: md5
-      md5: bef49bbcb713037989aee2d3f21db32a
-      size: 171
+      md5: dd70fbbdcf85156194a0a2586b2de09e
+      size: 170
