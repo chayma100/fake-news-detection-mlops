@@ -12,7 +12,7 @@ features:
   ngram_range: [1, 1]
 
 model:
-  type: naive_bayes        # logreg ou naive_bayes
+  type: logreg        # logreg ou naive_bayes
   logreg_C: 1.0
   logreg_max_iter: 1000
 
