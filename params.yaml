@@ -1,0 +1,21 @@
+data:
+  raw_path: data/raw/WELFake_Dataset.csv
+  test_size: 0.2
+  random_state: 42
+
+preprocessing:
+  scrub_sources: true
+  min_words: 20
+
+features:
+  max_features: 5000
+  ngram_range: [1, 1]
+
+model:
+  type: logreg          # logreg ou naive_bayes
+  logreg_C: 1.0
+  logreg_max_iter: 1000
+
+mlflow:
+  tracking_uri: sqlite:///mlflow.db
+  experiment_name: fake-news-classification

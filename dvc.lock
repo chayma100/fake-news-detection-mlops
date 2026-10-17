@@ -1,0 +1,158 @@
+schema: '2.0'
+stages:
+  data_ingestion:
+    cmd: python src/data_ingestion.py
+    deps:
+    - path: data/raw/WELFake_Dataset.csv
+      hash: md5
+      md5: 73c9675a4b3d09f86a6933d0b8d7d908
+      size: 245086152
+    - path: src/data_ingestion.py
+      hash: md5
+      md5: ed1fdc565eaa99108a4ddc71542ef365
+      size: 917
+    params:
+      params.yaml:
+        data:
+          raw_path: data/raw/WELFake_Dataset.csv
+          test_size: 0.2
+          random_state: 42
+    outs:
+    - path: data/interim/test.csv
+      hash: md5
+      md5: 9c7e06a37c3490a8bb443202816cd483
+      size: 42560773
+    - path: data/interim/train.csv
+      hash: md5
+      md5: c4f560e6eb5c5183534e487fa03d4a5b
+      size: 173262047
+  data_preprocessing:
+    cmd: python src/data_preprocessing.py
+    deps:
+    - path: data/interim/test.csv
+      hash: md5
+      md5: 9c7e06a37c3490a8bb443202816cd483
+      size: 42560773
+    - path: data/interim/train.csv
+      hash: md5
+      md5: c4f560e6eb5c5183534e487fa03d4a5b
+      size: 173262047
+    - path: src/data_preprocessing.py
+      hash: md5
+      md5: bd4f92b18b8dd327fbfa00d6a81ee0d0
+      size: 1411
+    params:
+      params.yaml:
+        preprocessing:
+          scrub_sources: true
+          min_words: 20
+    outs:
+    - path: data/interim/test_clean.csv
+      hash: md5
+      md5: da985ef2b41f699dd7795923ef2d49fe
+      size: 40215600
+    - path: data/interim/train_clean.csv
+      hash: md5
+      md5: 3f499b96dadf850c755c9e5242056a18
+      size: 163329328
+  feature_engineering:
+    cmd: python src/feature_engineering.py
+    deps:
+    - path: data/interim/test_clean.csv
+      hash: md5
+      md5: da985ef2b41f699dd7795923ef2d49fe
+      size: 40215600
+    - path: data/interim/train_clean.csv
+      hash: md5
+      md5: 3f499b96dadf850c755c9e5242056a18
+      size: 163329328
+    - path: src/feature_engineering.py
+      hash: md5
+      md5: d7a86bbfdc6f9b0efc2b00688d2e5d86
+      size: 1141
+    params:
+      params.yaml:
+        features:
+          max_features: 5000
+          ngram_range:
+          - 1
+          - 1
+    outs:
+    - path: data/processed/X_test.npz
+      hash: md5
+      md5: fb90566fc68c3bbd53f71c3f08366815
+      size: 16759330
+    - path: data/processed/X_train.npz
+      hash: md5
+      md5: 4f2a8bdae4a603782cb3c542343e752d
+      size: 68684095
+    - path: data/processed/y_test.csv
+      hash: md5
+      md5: 5c6d7d96db3efa6c24171db604f6b274
+      size: 37336
+    - path: data/processed/y_train.csv
+      hash: md5
+      md5: 7d61e995bc3181fffc90e0f7a1483acd
+      size: 149140
+    - path: models/tfidf_vectorizer.pkl
+      hash: md5
+      md5: 1899275b402758ee2d65949ac2085181
+      size: 184956
+  model_building:
+    cmd: python src/model_building.py
+    deps:
+    - path: data/processed/X_train.npz
+      hash: md5
+      md5: 4f2a8bdae4a603782cb3c542343e752d
+      size: 68684095
+    - path: data/processed/y_train.csv
+      hash: md5
+      md5: 7d61e995bc3181fffc90e0f7a1483acd
+      size: 149140
+    - path: src/model_building.py
+      hash: md5
+      md5: c6efb3bbc9091316f70b75275433a13f
+      size: 795
+    params:
+      params.yaml:
+        model:
+          type: logreg
+          logreg_C: 1.0
+          logreg_max_iter: 1000
+    outs:
+    - path: models/model.pkl
+      hash: md5
+      md5: 4656cb98649ae00aefe6ea21db954244
+      size: 40863
+  model_evaluation:
+    cmd: python src/model_evaluation.py
+    deps:
+    - path: data/processed/X_test.npz
+      hash: md5
+      md5: fb90566fc68c3bbd53f71c3f08366815
+      size: 16759330
+    - path: data/processed/y_test.csv
+      hash: md5
+      md5: 5c6d7d96db3efa6c24171db604f6b274
+      size: 37336
+    - path: models/model.pkl
+      hash: md5
+      md5: 4656cb98649ae00aefe6ea21db954244
+      size: 40863
+    - path: models/tfidf_vectorizer.pkl
+      hash: md5
+      md5: 1899275b402758ee2d65949ac2085181
+      size: 184956
+    - path: src/model_evaluation.py
+      hash: md5
+      md5: dac3a305c416d275a6294834f8f5e035
+      size: 2734
+    outs:
+    - path: confusion_matrix.png
+      hash: md5
+      md5: 138b24c32bb200a51a93f21b4294387e
+      size: 17706
+    - path: metrics.json
+      hash: md5
+      md5: 13b03634f2bd2b0747218a557cd34519
+      size: 136
