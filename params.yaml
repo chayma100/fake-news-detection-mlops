@@ -4,7 +4,7 @@ data:
   random_state: 42
 
 preprocessing:
-  scrub_sources: true
+  scrub_sources: false
   min_words: 20
 
 features:

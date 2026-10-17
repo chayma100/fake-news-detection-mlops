@@ -54,6 +54,8 @@ stages:
       - src/model_evaluation.py
       - models/model.pkl
       - models/tfidf_vectorizer.pkl
+      - data/processed/X_train.npz
+      - data/processed/y_train.csv
       - data/processed/X_test.npz
       - data/processed/y_test.csv
     metrics:

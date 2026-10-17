@@ -35,6 +35,8 @@ def top_features(model, vec, k=25):
 
 def main():
     params = yaml.safe_load(open("params.yaml"))
+    X_train = sparse.load_npz("data/processed/X_train.npz")
+    y_train = pd.read_csv("data/processed/y_train.csv")["label"]
     X_test = sparse.load_npz("data/processed/X_test.npz")
     y_test = pd.read_csv("data/processed/y_test.csv")["label"]
     model = joblib.load("models/model.pkl")
@@ -46,6 +48,7 @@ def main():
         "precision": precision_score(y_test, pred),
         "recall": recall_score(y_test, pred),
         "f1": f1_score(y_test, pred),
+        "train_f1": f1_score(y_train, model.predict(X_train)),
     }
     with open("metrics.json", "w") as f:
         json.dump(metrics, f, indent=2)
